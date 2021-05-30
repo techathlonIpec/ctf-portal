@@ -13,7 +13,7 @@ const app = express();
 
 const teamsCollection = require('./models/teams.js');
 const questionCollection = require('./models/questions.js');
-const { checkAuthenticated, checkUnAuthenticated, checkEventTime} = require('./authFunctions')
+const { checkAuthenticated, checkUnAuthenticated, checkEventTime } = require('./authFunctions')
 
 dotenv.config()
 
@@ -35,7 +35,7 @@ app.use(express.static(__dirname + '/public'))
 
 app.set('trust proxy', 1)
 app.use(session({
-    secret: 'SOME$ecre!',
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
 }))
@@ -69,17 +69,17 @@ app.post('/register', checkUnAuthenticated, (req, res) => {
     })
 })
 
-app.post("/login", checkEventTime,passport.authenticate('local', {
+app.post("/login", checkEventTime, passport.authenticate('local', {
     successRedirect: '/eventPage',
     failureRedirect: '/',
     failureFlash: true
 }))
 
-app.get('/', checkEventTime,checkUnAuthenticated, (req, res) => {
+app.get('/', checkEventTime, checkUnAuthenticated, (req, res) => {
     res.render('index.ejs')
 })
 
-app.get('/eventPage', checkEventTime,checkAuthenticated, (req, res) => {
+app.get('/eventPage', checkEventTime, checkAuthenticated, (req, res) => {
     // We find the user first
     teamsCollection.findOne({ teamName: req.user.teamName }).then(team => {
         if (!team) return res.status(400).send({ done: false, message: 'No Team found with the given teamName.' })
@@ -123,7 +123,7 @@ app.post('/addQuestion', (req, res) => {
     });
 })
 
-app.post('/checkAnswer', checkEventTime,checkAuthenticated,(req, res) => {
+app.post('/checkAnswer', checkEventTime, checkAuthenticated, (req, res) => {
     if (req.body.questionFlag.length == 0) {
         req.flash('wrongAnswer', 'Do you really think, answer is Empty String?')
         return res.redirect('/eventPage')
@@ -157,14 +157,14 @@ app.post('/checkAnswer', checkEventTime,checkAuthenticated,(req, res) => {
 
 });
 
-app.get('/message', (req,res)=>{
+app.get('/message', (req, res) => {
     res.render('bigMessage.ejs')
 })
 
-app.get('/logout', function(req, res){
+app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
-  });
+});
 
 app.listen(process.env.PORT || 3000, () => {
     console.log("Server is listening");
