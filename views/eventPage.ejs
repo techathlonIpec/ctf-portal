@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000" />
+    <title>Cryptohunt 2.0: Event Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-black text-white">
+
+    <header class="pl-5 pt-4 pb-2 border-bottom-white">
+        <h4>Trinity Cyber Forum 
+            <span class="text-warning">Cryptohunt 2.0</span>
+        </h4>
+    </header>
+
+   <div class="container-fluid">
+    <div class="question-container ml-4 mr-4 mt-5">
+        <div class="row">
+            <div class="col-md-8" style="border-right: 2px solid white;">
+                <h6>
+                    Question Number: <%= question.questionNumber %> 
+                    <br>
+                    <span class="text-warning">
+                        Weightage: <%= question.weightage %> Points
+                    </span>
+                </h6> <br>
+                <div class="question">
+                    <h6>
+                        Question:   
+                    </h6>
+                    <span class="question-text">
+                        <%= question.question %> 
+                    </span>
+                </div>
+                <div class="question-links mt-4">
+                    <h6>
+                        Links:
+                    </h6>
+                    <div class="question-text">
+                        <% question.questionLink.forEach(link => { %>
+                            <%= link.linkName %> : <a href="<%= link.linkText %>" target="_blank">Click Here</a> <br>
+                        <% }); %>
+                    </div>
+                </div>
+                <div class="question-hints mt-4">
+                    <h6>
+                        Hints
+                    </h6>
+                    <div class="question-text">
+                        <div class="question-text">
+                            <% question.questionHint.forEach(hint => { %>
+                                <%= hint.hintName %> : <%= hint.hintText %> <br>
+                            <% }); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mt-5">
+                <div class="team-details">
+                    <h6>Team Name: <span class="text-success"><%= team.teamName%></span></h6>
+                    <h6>Score : <span class="text-primary"> <%= team.score %> points</span></h6> 
+                    <a href="/logout">
+                        <button type="submit" class="btn logout-btn mt-2">Logout</button>
+                    </a>
+                </div>
+            </div>
+            <div class="extra-margin mt-5"></div>
+        </div>
+    </div>
+   </div>
+
+    <footer>
+        <div class="fixed-bottom border-top-white bg-black p-3 pb-5 pl-5 pr-5 text-center">
+            <form action="/checkAnswer" method="post">
+                <div class="row answer-form-row">
+                    <div class="col-md-9 mb-3">
+                        <input type="text" name="questionFlag" class="answer-field form-control" placeholder="Answer here...">
+                    </div>
+                    <div class="col-md-3 text-left mb-3">
+                        <button type="submit" class="btn answer-btn form-control">SUBMIT</button>
+                    </div>
+                </div>
+                <% if(messages.wrongAnswer){ %>
+                    <div class="text-left text-danger">
+                        <%= messages.wrongAnswer %> 
+                    </div>
+                <% } %>
+                <% if(messages.rightAnswer){ %>
+                    <div class="text-left text-success">
+                        <%= messages.rightAnswer %> 
+                    </div>
+                <% } %>
+                <div class="text-sm text-left">Remember the format TCF{XXXX}</div>
+            </form>
+        </div>
+    </footer>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</html>

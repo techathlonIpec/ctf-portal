@@ -1,0 +1,79 @@
+body,
+html {
+    margin: 0;
+    font-family: 'Press Start 2P';
+    padding: 0;
+    height: 100%;
+    background: #000 !important;  /* fallback for old browsers */
+
+}
+.login-box{
+    border: 1px solid white;
+    width: 40%;
+    height: 40vh !important;
+}
+
+@media (max-width: 768px){
+    .login-box{
+        width: 90%;
+        padding: 10%;
+        margin-bottom: 10vh;
+    }
+}
+/* EVENT PAGE */
+
+.extra-margin{
+    height: 350px !important;
+}
+.bg-black{
+    background-color: #000 !important;
+}
+.question-text{
+    font-size: 12px;
+}
+.border-top-white{
+    border-top: 1px solid white;
+}
+.border-bottom-white{
+    border-bottom: 1px solid white;
+}
+.answer-field, .answer-btn{
+    font-size: 12px !important;
+    background-color: transparent;
+    color: white;
+    border: 5px solid white;
+}
+
+.answer-btn,.logout-btn{
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    border: 5px solid white;
+}
+
+.answer-btn:hover{
+    background-color: white;
+    color: #DC143C;
+    transition: 0.3s ease-in;
+}
+.logout-btn{
+    font-size: 12px !important;
+    color:#DC143C;
+    border: 2px solid #DC143C;
+}
+
+.logout-btn:hover{
+    background-color: #DC143C;
+    color: white;
+    transition: 0.3s ease-in;
+}
+
+.answer-field:focus{
+    border: 5px solid white;
+    background-color: transparent;
+    color: white;
+}
+
+.answer-field::placeholder{
+    font-weight: bold;
+}

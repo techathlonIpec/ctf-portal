@@ -1,0 +1,41 @@
+{
+  "name": "cryptohunt-server",
+  "version": "0.0.1",
+  "description": "Trinity Cyber Forum Cryptohunt Server ",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "devStart": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Trinity-Developers-Club/cryptohunt-server.git"
+  },
+  "keywords": [
+    "Cryptohunt",
+    "quiz",
+    "trinity",
+    "cyber",
+    "forum",
+    "tdc"
+  ],
+  "author": "Trinity Cyber Forum",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Trinity-Developers-Club/cryptohunt-server/issues"
+  },
+  "homepage": "https://github.com/Trinity-Developers-Club/cryptohunt-server#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "ddos": "^0.2.1",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.10.14",
+    "nodemon": "^2.0.6",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  }
+}
