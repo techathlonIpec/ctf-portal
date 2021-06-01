@@ -143,8 +143,9 @@ app.post('/checkAnswer', checkEventTime, checkAuthenticated, (req, res) => {
                 req.flash('wrongAnswer', 'Uhm! Wrong Answer... Try Again')
                 return res.redirect('/eventPage')
             }
-            team.score = team.score + question.weightage
+            team.score = team.score + question.weightage - team.hintsUsed
             team.currentQuestion++;
+            team.hintsUsed = 0;
             team.save((err, team) => {
                 if (err) return res.send('SOME SPECIAL ERROR WHILE SAVING')
                 if (team) {
