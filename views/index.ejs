@@ -1,33 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cryptohunt 2.0</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" />
-</head>
-<body class="bg-black text-center text-white">
-    
-    <div class="container d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
-        <img src="trinity.png" class="m-3" height="100px" width="100px" alt="" srcset="">
-        <h1>TRINITY CYBER FORUM</h1>
-        <h2 class="text-warning">CRYPTOHUNT 2.0 Login</h2>
-        <div class="login-box d-flex flex-column justify-content-center align-items-center">
-          <%if(messages.error){%>
-            <h6 class="text-danger mb-3 text-center"><%=messages.error%></h6>
-            <% } %>
-          <form action="/login" method="POST">
-            <input type="text" name="teamName" class="answer-field form-control" placeholder="Team Name">
-            <br>
-            <input type="password" name="password" class="answer-field form-control" placeholder="password">
-            <br>
-            <button type="submit" class="btn answer-btn form-control">SUBMIT</button>
-          </form>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Capture the Flag</title>
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body class="">
+    <div class="text-center">
+      <img src="https://techathlon21.netlify.app/images/ipec.png" height="120px" alt="">
+      <img src="logotechathlon.png" style="filter:contrast();" alt="" height="120px"> <br>
+      <h1 class="text-large">Capture the <span class="accent-text">Flag</span></h1>
     </div>
-</body>
+    
+    <form method="POST" action="/login">
+      <% if (messages.error) { %> 
+        <div class="accent-bg text-medium text-center">
+          <%= messages.error %> 
+        </div>
+      <% }%>
+      <div class="form-item">
+        <label>Team Name</label>
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="teamName"
+            name="teamName"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            data-lpignore="true"
+          />
+        </div>
+      </div>
+      <div class="form-item">
+        <label>Password</label>
+        <div class="input-wrapper">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            data-lpignore="true"
+          />
+          <button type="button" id="eyeball">
+            <div class="eye"></div>
+          </button>
+          <div id="beam"></div>
+        </div>
+      </div>
+      <div class="text-sm">
+        Want to see something cool? Click on the Eye.
+      </div>
+      <button class="btn-submit" id="submit">Sign in</button>
+    </form>
+    <script src="main.js"></script>
+  </body>
 </html>
