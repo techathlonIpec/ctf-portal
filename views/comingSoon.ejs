@@ -31,7 +31,7 @@ body {
   right: 10vw;
   animation-name: scroll;
   animation-duration: 10s;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: linear;
   animation-direction: alternate;
   animation-iteration-count: infinite;
 }
@@ -51,8 +51,19 @@ body {
     transform: rotateX(20deg) rotateZ(30deg);
   }
   to {
-    transform: rotateX(20deg) rotateZ(30deg) translateY(30vw);
+    transform: rotateX(20deg) rotateZ(30deg) translateY(15vw);
   }
+}
+
+@media (max-width:978px) {
+    .scrollTxt{
+        bottom: 10vw;
+        animation-duration: 2s;
+        right: 1vw;
+    }
+    .scrollTxt p {
+        font-size: 12vw;
+}
 }
 </style>
 <body>
