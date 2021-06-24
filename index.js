@@ -6,6 +6,7 @@ const passport = require("passport")
 const flash = require("express-flash")
 const session = require("express-session")
 var Ddos = require('ddos')
+const quotable = require('quotable');
 
 var ddos = new Ddos;
 
@@ -84,12 +85,13 @@ app.get('/eventPage', checkEventTime, checkAuthenticated, (req, res) => {
     teamsCollection.findOne({ teamName: req.user.teamName }).then(team => {
         if (!team) return res.status(400).send({ done: false, message: 'No Team found with the given teamName.' })
         // We find the currentQuestion of user
-        questionCollection.findOne({ questionNumber: team.currentQuestion }).then(question => {
+        questionCollection.findOne({ questionNumber: team.currentQuestion }).then(async question => {
             if (!question) {
                 req.flash('bigMessage', 'Kuddos!! You have answered all the questions. Go enjoy the weekend with some Netflix or better, "GET CODING"')
                 return res.redirect('/message')
             }
-            res.render('eventPage.ejs', { team, question })
+            const randomQuote = await quotable.getRandomQuote({ minLength: 45, maxLength: 80, tags: 'education|famous-quotes|wisdom|technology|success|future' });
+            res.render('eventPage.ejs', { team, question, randomQuote })
         })
     })
 
@@ -158,20 +160,45 @@ app.post('/checkAnswer', checkEventTime, checkAuthenticated, (req, res) => {
 
 });
 
-app.get('/getHint', checkEventTime, checkAuthenticated, (req,res)=>{
-    teamsCollection.findOne({teamName:req.user.teamName}).then(team=>{
-        if(team.hintsUsed === 2){
+app.get('/skipQuestion', checkEventTime, checkAuthenticated, (req, res) => {
+    teamsCollection.findOne({ teamName: req.user.teamName }).then(team => {
+        if (team.hintsUsed === 2) {
+            team.currentQuestion += 1;
+            team.hintsUsed = 0;
+            team.save().then(savedTeam => {
+                if (savedTeam) {
+                    res.redirect('/eventPage')
+                }
+                else {
+                    req.flash('wrongAnswer', 'Unknown Error While Skipping Question. Contact Techathlon Team')
+                    res.redirect('/eventPage')
+
+                }
+            })
+        }
+        else {
+            req.flash('wrongAnswer', 'You cannot skip questions without using all the hints.')
+            res.redirect('/eventPage')
+
+        }
+    })
+})
+
+app.get('/getHint', checkEventTime, checkAuthenticated, (req, res) => {
+    teamsCollection.findOne({ teamName: req.user.teamName }).then(team => {
+        if (team.hintsUsed === 2) {
             req.flash('wrongAnswer', 'You have already used maximum number of hints for this Question')
             res.redirect('/eventPage')
         }
-        else{
+        else {
             team.hintsUsed = team.hintsUsed + 1;
-            team.save().then(savedTeam=>{
-                if(savedTeam){
+            team.save().then(savedTeam => {
+                if (savedTeam) {
                     res.redirect('/eventPage')
                 }
-                else{
+                else {
                     req.flash('wrongAnswer', 'Unknown Error While Fetching Hint. Contact Techathlon Team')
+                    res.redirect('/eventPage')
                 }
             })
         }
