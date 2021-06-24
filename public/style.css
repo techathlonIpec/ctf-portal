@@ -6,6 +6,15 @@
     --spacer: 1rem;
   }
 
+  body{
+    margin-top: 2%;
+    font-family: monospace;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bgColor);
+    color: var(--inputColor);
+  }
+
   body.dark-theme {
     --bgColor: black;
     --inputColor: white;
@@ -16,7 +25,7 @@
   label,
   input,
   button {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-family: monospace;
     color: var(--inputColor);
   }
@@ -48,7 +57,6 @@
   
   [id=submit] {
     cursor: pointer;
-    margin: calc(var(--spacer) * 2) 0 0 2px;
     padding: 0.75rem 1.25rem;
     color: var(--bgColor);
     background-color: var(--inputColor);
@@ -61,10 +69,15 @@
   .input-wrapper {
     position: relative;
   }
-  
+  .text-red{
+    color: red;
+  }
+  .text-green{
+    color: green;
+  }
   input {
     padding: 0.75rem 4rem 0.75rem 0.75rem;
-    width: 100%;
+    width: 60%;
     border: 2px solid transparent;
     border-radius: 0;
     background-color: transparent;
@@ -74,6 +87,7 @@
   input:focus {
     outline-offset: 1px;
   }
+
   .dark-theme input {
     box-shadow: inset 0 0 0 2px black;
     border: 2px dashed white;
@@ -82,3 +96,132 @@
     outline: none;
     border-color: var(--beamColor);
   }
+
+  .nav{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .section{
+    display: flex;
+    padding: 4% 4%;
+    font-size: 20px;
+    justify-content: space-around;
+  }
+
+  .questionSection{
+    width: 60%;
+    /* border-right: 2px solid black; */
+    min-height: 50vh;
+    padding: 1% 0%;
+  }
+  .label-accent{
+    color: white;
+    background-color: #DA2940;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  .questionDetails{
+    display: flex;
+    justify-content: space-between;
+  }
+  .accent-text{
+    color: #DA2940;
+}
+.text-large{
+  font-size: 35px;
+}
+
+button.btn-getHint:hover,button.btn-logout{
+  padding: 10px 20px;
+  border: 2px solid #DA2940;
+  color: #DA2940;
+  background-color: transparent;
+  cursor: pointer;
+  
+}
+button.btn-getHint,button.btn-logout:hover{
+  padding: 10px 20px;
+  border: 2px solid #DA2940;
+  background-color: #DA2940;
+  color: white;
+  transition: 0.3s;
+}
+
+a{
+  color: var(--inputColor);
+}
+a :visited{
+  color: var(--inputColor);
+}
+
+  .teamSection{
+    padding: 1% 2%;
+    width: 25%;
+    border: 3px solid var(--inputColor);
+  }
+
+
+  /* DAY NIGHT TOGGLE */
+
+  /* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+}
+
+input:checked + .slider {
+  background-color: #DA2940;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #DA2940;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
