@@ -145,14 +145,20 @@ app.post('/checkAnswer', checkEventTime, checkAuthenticated, (req, res) => {
                 req.flash('wrongAnswer', 'Uhm! Wrong Answer... Try Again')
                 return res.redirect('/eventPage')
             }
-            team.score = team.score + question.weightage - team.hintsUsed
+            team.score = team.score + question.weightage - team.hintsUsed*10
             team.currentQuestion++;
             team.hintsUsed = 0;
             team.save((err, team) => {
                 if (err) return res.send('SOME SPECIAL ERROR WHILE SAVING')
                 if (team) {
-                    req.flash('rightAnswer', 'Awesome! You got it. Score added.')
-                    return res.redirect('/eventPage')
+                    let date = new Date().toString()
+                    team.lastAnsweredOn = date
+                    team.save().then(savedTeam=>{
+                        if(savedTeam){
+                            req.flash('rightAnswer', 'Awesome! You got it. Score added.')
+                            return res.redirect('/eventPage')
+                        }
+                    })
                 }
             })
         })
@@ -162,7 +168,7 @@ app.post('/checkAnswer', checkEventTime, checkAuthenticated, (req, res) => {
 
 app.get('/skipQuestion', checkEventTime, checkAuthenticated, (req, res) => {
     teamsCollection.findOne({ teamName: req.user.teamName }).then(team => {
-        if (team.hintsUsed === 2) {
+        if (team.hintsUsed === 3) {
             team.currentQuestion += 1;
             team.hintsUsed = 0;
             team.save().then(savedTeam => {
@@ -186,7 +192,7 @@ app.get('/skipQuestion', checkEventTime, checkAuthenticated, (req, res) => {
 
 app.get('/getHint', checkEventTime, checkAuthenticated, (req, res) => {
     teamsCollection.findOne({ teamName: req.user.teamName }).then(team => {
-        if (team.hintsUsed === 2) {
+        if (team.hintsUsed === 3) {
             req.flash('wrongAnswer', 'You have already used maximum number of hints for this Question')
             res.redirect('/eventPage')
         }

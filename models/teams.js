@@ -24,8 +24,11 @@ const teamSchema = new schema({
         type: Number,
         required: true,
         default: 0
+    },
+    lastAnsweredOn:{
+        type:String,
+        required: false,
     }
-
 });
 
 const participantModel = mongoose.model('teams', teamSchema);
